@@ -2,7 +2,6 @@ from datetime import datetime, timezone
 from enum import Enum
 
 from pydantic import BaseModel, Field
-from pydantic.dataclasses import dataclass
 
 class ConditionType(Enum):
     SUNNY = "Sunny"

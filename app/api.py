@@ -19,7 +19,6 @@ def create_weather_report(city: str):
     timestamp = datetime.now(timezone.utc)
     data = request.get_json()
     data["timestamp"] = timestamp.isoformat()
-    data["city"] = city
     try:
         report = WeatherReport(**data)
     except ValidationError as e:

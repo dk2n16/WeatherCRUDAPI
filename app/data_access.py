@@ -25,9 +25,7 @@ def db_delete_weather_report(city: str) -> None:
 
 
 def db_update_weather_report(city: str, report: WeatherReport) -> WeatherReport | None:
-    try:
-        record = db[city]
-        db.update(record, report)
-    except KeyError:
+    if city not in db:
         raise CityNotFoundError(f"City '{city}' not found in the database.")
+    db[city] = report
     return db.get(city)
