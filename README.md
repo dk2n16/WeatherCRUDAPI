@@ -17,4 +17,6 @@ API for weather
 13. uvi/gunicorn
 14. docker and docker-compose
 15. database
-
+16. Integration tests
+17. Load/stress tests
+18. Kubernetes/minikube (?)
