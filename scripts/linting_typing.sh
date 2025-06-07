@@ -5,4 +5,4 @@ echo $(uv run pip-audit --version)
 
 uv run ruff check app tests
 uv run mypy app tests
-uv run pip-audit --ignore-unknown
+uv run pip-audit
