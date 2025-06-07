@@ -5,12 +5,12 @@ from .errors import CityNotFoundError
 db: dict[str, WeatherReport] = {}
 
 
-def db_add_weather_report(city: str, report: WeatherReport) -> None:
+def db_add_weather_report(city: str, report: WeatherReport) -> WeatherReport:
     db[city] = report
-    return db.get(city)
+    return db[city]
 
 
-def db_get_weather_report(city: str) -> WeatherReport | None:
+def db_get_weather_report(city: str) -> WeatherReport:
     try:
         return db[city]
     except KeyError:
@@ -24,8 +24,8 @@ def db_delete_weather_report(city: str) -> None:
     return None
 
 
-def db_update_weather_report(city: str, report: WeatherReport) -> WeatherReport | None:
+def db_update_weather_report(city: str, report: WeatherReport) -> WeatherReport:
     if city not in db:
         raise CityNotFoundError(f"City '{city}' not found in the database.")
     db[city] = report
-    return db.get(city)
+    return db[city]
