@@ -38,6 +38,18 @@ def test_get_endpoint(client, populated_db):
     assert data["report"]["temperature"] == 15.0
 
 
+def test_get_all_weather_reports(client, populated_db):
+    response = client.get("/weather")
+    assert response.status_code == 200
+    data = response.get_json()
+    assert "weather_reports" in data
+    cities = {report["city"] for report in data["weather_reports"]}
+    assert {"london", "paris", "barcelona"} <= cities
+    london = next(r for r in data["weather_reports"] if r["city"] == "london")
+    assert london["condition"] == "Cloudy"
+    assert london["temperature"] == 15.0
+
+
 def test_get_nonexistent_city(client):
     response = client.get("/weather/timbuktu")
     assert response.status_code == 404

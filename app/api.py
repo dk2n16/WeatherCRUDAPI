@@ -35,6 +35,21 @@ def get_weather_report(city: str):
     return jsonify({"city": city, "report": report.model_dump(mode="json")}), 200
 
 
+@api_bp.route("/weather", methods=["GET"])
+def get_all_weather_reports():
+    from .data_access import db
+    summary = [
+        {
+            "city": report.city,
+            "condition": report.condition.value,
+            "temperature": report.temperature,
+            "timestamp": report.timestamp.isoformat(),
+        }
+        for report in db.values()
+    ]
+    return jsonify({"weather_reports": summary}), 200
+
+
 @api_bp.route("/weather/<city>", methods=["DELETE"])
 def delete_weather_report(city: str):
     try:
