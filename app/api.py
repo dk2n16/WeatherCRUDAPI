@@ -7,6 +7,7 @@ from .data_access import (
     db_get_weather_report,
     db_delete_weather_report,
     db_update_weather_report,
+    db_get_all_weather_reports,
 )
 from .errors import CityNotFoundError
 
@@ -37,7 +38,7 @@ def get_weather_report(city: str):
 
 @api_bp.route("/weather", methods=["GET"])
 def get_all_weather_reports():
-    from .data_access import db
+    reports = db_get_all_weather_reports()
     summary = [
         {
             "city": report.city,
@@ -45,7 +46,7 @@ def get_all_weather_reports():
             "temperature": report.temperature,
             "timestamp": report.timestamp.isoformat(),
         }
-        for report in db.values()
+        for report in reports
     ]
     return jsonify({"weather_reports": summary}), 200
 

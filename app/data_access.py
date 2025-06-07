@@ -17,15 +17,7 @@ def db_get_weather_report(city: str) -> WeatherReport:
         raise CityNotFoundError(f"City '{city}' not found in the database.")
     
 def db_get_all_weather_reports() -> list[WeatherReport]:
-    return [
-        {
-            "city": report.city,
-            "condition": report.condition.value,
-            "temperature": report.temperature,
-            "timestamp": report.timestamp.isoformat(),
-        }
-        for report in db.values()
-    ]
+    return list(db.values())
 
 def db_delete_weather_report(city: str) -> None:
     try:
